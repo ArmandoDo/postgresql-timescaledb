@@ -19,6 +19,8 @@ cp .env.tmpl .env
 export POSTGRES_PASSWORD="postgres_pass"
 # Password for the "admin" user
 export ADMIN_PASSWORD="admin_pass"
+# Port exposed in the Postgresql Docker container
+export POSTGRESQL_CONTAINER_PORT="5432"
 ```
 
 ## Deploy Postgresql and TimescaleDB

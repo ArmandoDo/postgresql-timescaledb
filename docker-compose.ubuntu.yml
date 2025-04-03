@@ -16,12 +16,13 @@ services:
       PGDATA: /var/lib/postgresql/data
       POSTGRESQL_CONF_FILE: /etc/postgresql/postgresql.conf
       PG_HBA_FILE: /etc/postgresql/pg_hba.conf
+      PGPORT: ${POSTGRESQL_CONTAINER_PORT}
     # Loggin settings
     logging:
       driver: "json-file"
       options:
-        max-size: "64m"
-        max-file: 16
+        max-size: "8m"
+        max-file: 4
         compress: "true"
     restart: always
     # Check status of service
