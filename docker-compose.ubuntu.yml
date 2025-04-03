@@ -1,0 +1,33 @@
+services:
+  ### Postgresql service
+  postgresql:
+    image: ${REGISTRY_NAME}/${APP_NAME}:${APP_TAG}
+    container_name: ${APP_NAME}
+    network_mode: host
+    # Volumes
+    volumes:
+      - /var/lib/postgresql/data:/var/lib/postgresql/data
+    # Environment variables
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      POSTGRES_DB: development
+      PGDATA: /var/lib/postgresql/data
+      POSTGRESQL_CONF_FILE: /etc/postgresql/postgresql.conf
+      PG_HBA_FILE: /etc/postgresql/pg_hba.conf
+      PGPORT: ${POSTGRESQL_CONTAINER_PORT}
+    # Loggin settings
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "8m"
+        max-file: 4
+        compress: "true"
+    restart: always
+    # Check status of service
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready", "-d", "development"]
+      retries: 6
+      interval: 20s
+      timeout: 10s
